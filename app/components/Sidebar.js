@@ -71,6 +71,12 @@ function Sidebar() {
             <span className={`ml-3 ${!isOpen && 'hidden'}`}>Reports</span>
           </Link>
         </li>
+        <li className="flex items-center p-2 hover:bg-indigo-600 rounded">
+          <Link href="/resources" className="flex items-center w-full">
+            <UsersIcon className="h-6 w-6" />
+            <span className={`ml-3 ${!isOpen && 'hidden'}`}>Resources</span>
+          </Link>
+        </li>
       </ul>
 
       {/* Botão de Logout */}
