@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import Loader from '../../components/Loader';
 import dynamic from 'next/dynamic';
@@ -19,6 +21,7 @@ export default function HotelManagementPage() {
     image: '',
     user_id: ''
   });
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(false);
@@ -53,12 +56,9 @@ export default function HotelManagementPage() {
     setFormState({ ...formState, [name]: value });
   };
 
-  const openModal = (mode = null) => {
-    setIsModalOpen(true);
-    console.log(mode);
-    if(mode == 'edit'){
-        setEditHotel(true)
-    }
+  const handleEditHotel = (hotelId) => {
+    router.push('/resources/hotels/' + hotelId);
+
   };
 
   const closeModal = () => {
@@ -96,14 +96,22 @@ export default function HotelManagementPage() {
         </ProtectedRoute>
       ) : (
         <>
-        {isModalOpen ? <>{editHotel ? <HotelForm  isEditing={true} />: <HotelForm  isEditing={false} />}</>
-        : <div className="container mx-auto mt-6">
-          <button
-            onClick={() => openModal("add")}
-            className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-          >
-            Add Hotel
-          </button>
+        <div className="container mx-auto mt-6">
+        <Link href="/resources/hotels/create">
+              <button className="px-4 py-2 mb-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                Add Hotel
+              </button>
+            </Link>
+
+          <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          // value={searchTerm}
+          // onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by title..."
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+        />
+      </div>
 
           {/* Hotel List */}
           {hotels.length === 0 ? (
@@ -134,7 +142,7 @@ export default function HotelManagementPage() {
                     </td>
                     <td className="px-6 py-4">
                       <button
-                        onClick={() => openModal("edit")}
+                        onClick={()=>handleEditHotel(hotel.id)}
                         className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
                       >
                         Edit
@@ -210,7 +218,7 @@ export default function HotelManagementPage() {
             //   </div>
             // </div>
           )} */}
-        </div>}
+        </div>
         
         </>
       )}

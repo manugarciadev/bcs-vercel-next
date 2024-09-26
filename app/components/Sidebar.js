@@ -1,15 +1,21 @@
 "use client";
 import React, { useState } from 'react';
 import { HomeIcon, UsersIcon, FolderIcon, CalendarIcon, DocumentIcon, ChartBarIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import {Car,ChevronDown,School} from 'lucide-react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleResources = () => {
+    setIsResourcesOpen(!isResourcesOpen);
   };
 
   const handleLogout = () => {
@@ -71,12 +77,28 @@ function Sidebar() {
             <span className={`ml-3 ${!isOpen && 'hidden'}`}>Reports</span>
           </Link>
         </li>
-        <li className="flex items-center p-2 hover:bg-indigo-600 rounded">
-          <Link href="/resources" className="flex items-center w-full">
-            <UsersIcon className="h-6 w-6" />
-            <span className={`ml-3 ${!isOpen && 'hidden'}`}>Resources</span>
-          </Link>
-        </li>
+        <li className="p-2 hover:bg-indigo-600 rounded">
+        <div className="flex items-center cursor-pointer" onClick={toggleResources}>
+          <ChevronDown className="h-6 w-6" />
+          <span className={`ml-3 ${!isOpen && 'hidden'}`}>Resources</span>
+        </div>
+        {/* Submenu */}
+        <ul className={`ml-8 mt-2 space-y-2 ${isResourcesOpen ? 'block' : 'hidden'}`}>
+          <li className="flex items-center p-2 hover:bg-indigo-500 rounded">
+            <Link href="/resources/fleets" className="flex items-center w-full">
+              <Car className="h-5 w-5" />
+              <span className="ml-3">Fleet Management</span>
+            </Link>
+          </li>
+          <li className="flex items-center p-2 hover:bg-indigo-500 rounded">
+            <Link href="/resources/hotels" className="flex items-center w-full">
+              <School className="h-5 w-5" />
+              <span className="ml-3">Hotel Management</span>
+            </Link>
+          </li>
+          
+        </ul>
+      </li>
       </ul>
 
       {/* Botão de Logout */}

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import MultiSelect from "./MultiSelect";
 import TierPricing from "./TierPricing";
 import DragImages from "./DragImages";
+import SingleAddImage from "./SingleAddImage";
 import Modal from "./Modal";
 import MultiSelectAdvanced from "./MultiSelectAdvanced";
 import MultiSelectIndependent from "./MultiSelectIndependent";
@@ -47,6 +48,8 @@ export default function Home(isEditing, data) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [verificationCode, setVerificationCode] = useState(0);
+  const [hotelName, setHotelName]=useState("");
+  const [selectedOwner, setSelectedOwner] = useState('');
 
 
   useEffect(() => {
@@ -164,30 +167,33 @@ export default function Home(isEditing, data) {
   useEffect(() => {
     if (isEditing.data) {
       // Modo de edição
-      console.log(isEditing.data);
-      setMainCode(isEditing.data.code || '');
-      setStatus(isEditing.data.status || '');
-      setVerificationCode(isEditing.data.verificationCode || 0);
-      setSelectedDestinationOptions(isEditing.data.destinations || []);
-      setSelectedTypeOptions(isEditing.data.types || []);
-      setImages(isEditing.data.images || []);
-      setSelectedThemes(isEditing.data.themes || []);
-      setSelectedCategories(isEditing.data.categories || []);
-      setSelectedLanguages(isEditing.data.languagesTour || []);
-      setVideoLink(isEditing.data.videoLink || '');
-      setTimes(isEditing.data.times || []);
-      setSelectedPickupPlaces(isEditing.data.pickupPlaces || []);
-      setSelectedDropoffPlaces(isEditing.data.dropoffPlaces || []);
-      setSelectedLocations(isEditing.data.locations || []);
-      setSelectedInclusions(isEditing.data.inclusions || []);
-      setSelectedExclusions(isEditing.data.exclusions || []);
-      setSelectedAvailableLanguages(isEditing.data.languages || []);
-      setSelectedWhatToBring(isEditing.data.whatToBring || []);
-      setSelectedAgeRanges(isEditing.data.ageRanges || []);
-      setSelectedCancellationPolicys(isEditing.data.cancellationPolicies || []);
-      setRates(isEditing.data.rates || []);
-      setTasks(isEditing.data.tasks || []);
-      setSelectedResources(isEditing.data.resources || []);
+      console.log("edit",isEditing.data);
+      setHotelName(isEditing.data.name || '');
+      setImages(isEditing.data.image || []);
+      setSelectedOwner(isEditing.data.user.name || '')
+      // setMainCode(isEditing.data.code || '');
+      // setStatus(isEditing.data.status || '');
+      // setVerificationCode(isEditing.data.verificationCode || 0);
+      // setSelectedDestinationOptions(isEditing.data.destinations || []);
+      // setSelectedTypeOptions(isEditing.data.types || []);
+      // setImages(isEditing.data.images || []);
+      // setSelectedThemes(isEditing.data.themes || []);
+      // setSelectedCategories(isEditing.data.categories || []);
+      // setSelectedLanguages(isEditing.data.languagesTour || []);
+      // setVideoLink(isEditing.data.videoLink || '');
+      // setTimes(isEditing.data.times || []);
+      // setSelectedPickupPlaces(isEditing.data.pickupPlaces || []);
+      // setSelectedDropoffPlaces(isEditing.data.dropoffPlaces || []);
+      // setSelectedLocations(isEditing.data.locations || []);
+      // setSelectedInclusions(isEditing.data.inclusions || []);
+      // setSelectedExclusions(isEditing.data.exclusions || []);
+      // setSelectedAvailableLanguages(isEditing.data.languages || []);
+      // setSelectedWhatToBring(isEditing.data.whatToBring || []);
+      // setSelectedAgeRanges(isEditing.data.ageRanges || []);
+      // setSelectedCancellationPolicys(isEditing.data.cancellationPolicies || []);
+      // setRates(isEditing.data.rates || []);
+      // setTasks(isEditing.data.tasks || []);
+      // setSelectedResources(isEditing.data.resources || []);
     } else {
       // Modo de criação
       if (typeof window !== "undefined") {
@@ -196,7 +202,7 @@ export default function Home(isEditing, data) {
           mainCode: localStorage.getItem('mainCode') || '',
           destinations: JSON.parse(localStorage.getItem('selectedDestinationOptions')) || [],
           types: JSON.parse(localStorage.getItem('selectedTypeOptions')) || [],
-          images: JSON.parse(localStorage.getItem('images')) || [],
+          // images: JSON.parse(localStorage.getItem('images')) || [],
           themes: JSON.parse(localStorage.getItem('selectedThemes')) || [],
           categories: JSON.parse(localStorage.getItem('selectedCategories')) || [],
           languagesTour: JSON.parse(localStorage.getItem('selectedLanguages')) || [],
@@ -247,15 +253,16 @@ export default function Home(isEditing, data) {
 
   const steps = [
     "Basic Info 📝",
-    "Media & Description 🖼️",
-    "Start-time & Duration ⏰",
-    "Pick-up / Drop-off 🚐",
-    "Itinerary 📍",
-    "Inclusion / Exclusion ✅",
-    "Important Info ℹ️",
-    "Pricing 💲",
-    "Task & Resources 📋",
+    "Add Image 🖼️",
+    "Select Owner ⏰",
     "Activate 🟢"
+    // "Pick-up / Drop-off 🚐",
+    // "Itinerary 📍",
+    // "Inclusion / Exclusion ✅",
+    // "Important Info ℹ️",
+    // "Pricing 💲",
+    // "Task & Resources 📋",
+    
   ];
 
 
@@ -336,74 +343,74 @@ export default function Home(isEditing, data) {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  const handleActivateProduct = () => {
+  const handleAddHotel = () => {
     // Lógica para ativar o produto
    
-      localStorage.setItem('mainCode', '');  // Armazena uma string vazia show handleSaveAll
+      // localStorage.setItem('mainCode', '');  // Armazena uma string vazia show handleSaveAll
       localStorage.setItem('images', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedThemes', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedCategories', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedLanguages', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('videoLink', '');  // Armazena uma string vazia
-      localStorage.setItem('times', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedPickupPlaces', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedDropoffPlaces', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedLocations', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedInclusions', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedExclusions', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedAvailableLanguages', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedWhatToBring', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedAgeRanges', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedCancellationPolicys', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('rates', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('tasks', JSON.stringify([]));  // Armazena um array vazio
-      localStorage.setItem('selectedResources', JSON.stringify([]));  
+      // localStorage.setItem('selectedThemes', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedCategories', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedLanguages', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('videoLink', '');  // Armazena uma string vazia
+      // localStorage.setItem('times', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedPickupPlaces', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedDropoffPlaces', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedLocations', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedInclusions', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedExclusions', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedAvailableLanguages', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedWhatToBring', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedAgeRanges', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedCancellationPolicys', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('rates', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('tasks', JSON.stringify([]));  // Armazena um array vazio
+      // localStorage.setItem('selectedResources', JSON.stringify([]));  
 
    // Armazena um array vazio
-    console.log('Product Activated');
+    console.log('Hotel Added');
 
-    const newTour = {
-      id: uuidv4(),
-      code: mainCode,  // Código principal
-      title: selectedLanguages[0].title,
-      status: 'Active 🟢',
-      types: selectedTypeOptions,
-      destinations: selectedDestinationOptions,
-      images: images,  // Imagens
-      themes: selectedThemes,  // Temas selecionados
-      categories: selectedCategories,  // Categorias selecionadas
-      languagesTour: selectedLanguages,  // Idiomas selecionados
-      videoLink: videoLink,  // Link do vídeo
-      times: times,  // Horários
-      pickupPlaces: selectedPickupPlaces,  // Locais de coleta selecionados
-      dropoffPlaces: selectedDropoffPlaces,  // Locais de entrega selecionados
-      locations: selectedLocations,  // Localizações selecionadas
-      inclusions: selectedInclusions,  // Inclusões selecionadas
-      exclusions: selectedExclusions,  // Exclusões selecionadas
-      availableLanguages: selectedAvailableLanguages,  // Idiomas disponíveis selecionados
-      whatToBring: selectedWhatToBring,  // O que trazer selecionado
-      ageRanges: selectedAgeRanges,  // Faixas etárias selecionadas
-      cancellationPolicies: selectedCancellationPolicys,  // Políticas de cancelamento selecionadas
-      rates: rates,  // Tarifas
-      tasks: tasks,  // Tarefas
-      resources: selectedResources,  // Recursos selecionados
+    // const newTour = {
+    //   id: uuidv4(),
+    //   code: mainCode,  // Código principal
+    //   title: selectedLanguages[0].title,
+    //   status: 'Active 🟢',
+    //   types: selectedTypeOptions,
+    //   destinations: selectedDestinationOptions,
+    //   images: images,  // Imagens
+    //   themes: selectedThemes,  // Temas selecionados
+    //   categories: selectedCategories,  // Categorias selecionadas
+    //   languagesTour: selectedLanguages,  // Idiomas selecionados
+    //   videoLink: videoLink,  // Link do vídeo
+    //   times: times,  // Horários
+    //   pickupPlaces: selectedPickupPlaces,  // Locais de coleta selecionados
+    //   dropoffPlaces: selectedDropoffPlaces,  // Locais de entrega selecionados
+    //   locations: selectedLocations,  // Localizações selecionadas
+    //   inclusions: selectedInclusions,  // Inclusões selecionadas
+    //   exclusions: selectedExclusions,  // Exclusões selecionadas
+    //   availableLanguages: selectedAvailableLanguages,  // Idiomas disponíveis selecionados
+    //   whatToBring: selectedWhatToBring,  // O que trazer selecionado
+    //   ageRanges: selectedAgeRanges,  // Faixas etárias selecionadas
+    //   cancellationPolicies: selectedCancellationPolicys,  // Políticas de cancelamento selecionadas
+    //   rates: rates,  // Tarifas
+    //   tasks: tasks,  // Tarefas
+    //   resources: selectedResources,  // Recursos selecionados
       
-    };
+    // };
     
-    console.log(newTour);
+    // console.log(newTour);
     
     
-    createDayTourActivity(newTour)
-      .then((data) => {
-        console.log('Tour criado com sucesso:', data);
-      })
-      .catch((error) => {
-        console.error('Erro ao criar o tour:', error.message);
-      });
+    // createDayTourActivity(newTour)
+    //   .then((data) => {
+    //     console.log('Tour criado com sucesso:', data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Erro ao criar o tour:', error.message);
+    //   });
  
     
-    setDropdownOpen(false);
-    router.push('/products');
+    // setDropdownOpen(false);
+    router.push('/resources/hotels');
   };
 
   const handleSaveAsDraft = () => {
@@ -545,42 +552,42 @@ export default function Home(isEditing, data) {
 
   const handleSaveAll = async () => {
 
-    const newTour = {
-      code: mainCode,  // Código principal
-      title: selectedLanguages[0].title,
-      status: status,
-      destinations: selectedDestinationOptions,
-      types: selectedTypeOptions,
-      images: images,  // Imagens
-      themes: selectedThemes,  // Temas selecionados
-      categories: selectedCategories,  // Categorias selecionadas
-      languagesTour: selectedLanguages,  // Idiomas selecionados
-      videoLink: videoLink,  // Link do vídeo
-      times: times,  // Horários
-      pickupPlaces: selectedPickupPlaces,  // Locais de coleta selecionados
-      dropoffPlaces: selectedDropoffPlaces,  // Locais de entrega selecionados
-      locations: selectedLocations,  // Localizações selecionadas
-      inclusions: selectedInclusions,  // Inclusões selecionadas
-      exclusions: selectedExclusions,  // Exclusões selecionadas
-      languages: selectedAvailableLanguages,  // Idiomas disponíveis selecionados
-      whatToBring: selectedWhatToBring,  // O que trazer selecionado
-      ageRanges: selectedAgeRanges,  // Faixas etárias selecionadas
-      cancellationPolicies: selectedCancellationPolicys,  // Políticas de cancelamento selecionadas
-      rates: rates,  // Tarifas
-      tasks: tasks,  // Tarefas
-      resources: selectedResources  // Recursos selecionados
-    };
+    // const newTour = {
+    //   code: mainCode,  // Código principal
+    //   title: selectedLanguages[0].title,
+    //   status: status,
+    //   destinations: selectedDestinationOptions,
+    //   types: selectedTypeOptions,
+    //   images: images,  // Imagens
+    //   themes: selectedThemes,  // Temas selecionados
+    //   categories: selectedCategories,  // Categorias selecionadas
+    //   languagesTour: selectedLanguages,  // Idiomas selecionados
+    //   videoLink: videoLink,  // Link do vídeo
+    //   times: times,  // Horários
+    //   pickupPlaces: selectedPickupPlaces,  // Locais de coleta selecionados
+    //   dropoffPlaces: selectedDropoffPlaces,  // Locais de entrega selecionados
+    //   locations: selectedLocations,  // Localizações selecionadas
+    //   inclusions: selectedInclusions,  // Inclusões selecionadas
+    //   exclusions: selectedExclusions,  // Exclusões selecionadas
+    //   languages: selectedAvailableLanguages,  // Idiomas disponíveis selecionados
+    //   whatToBring: selectedWhatToBring,  // O que trazer selecionado
+    //   ageRanges: selectedAgeRanges,  // Faixas etárias selecionadas
+    //   cancellationPolicies: selectedCancellationPolicys,  // Políticas de cancelamento selecionadas
+    //   rates: rates,  // Tarifas
+    //   tasks: tasks,  // Tarefas
+    //   resources: selectedResources  // Recursos selecionados
+    // };
     
-    console.log(newTour);
-
-    try {
-      // Atualiza o produto usando a função importada
-      await updateDayTourActivity(isEditing.data._id, newTour);
-      // Redireciona para a lista de produtos após a atualização
-      router.push('/products');
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
+    // console.log(newTour);
+    router.push('/resources/hotels');
+    // try {
+    //   // Atualiza o produto usando a função importada
+    //   await updateDayTourActivity(isEditing.data._id, newTour);
+    //   // Redireciona para a lista de produtos após a atualização
+    //   router.push('/products');
+    // } catch (error) {
+    //   console.error('Error updating product:', error);
+    // }
   };
 
   const handleSave = () => {
@@ -949,29 +956,30 @@ export default function Home(isEditing, data) {
   
 
   const handleSaveAndContinue = () => {
+    // console.log("completed")
 
     // >>> Cookies
-    localStorage.setItem('mainCode', mainCode);
-    localStorage.setItem('selectedDestinationOptions', JSON.stringify(selectedDestinationOptions));
-    localStorage.setItem('selectedTypeOptions', JSON.stringify(selectedTypeOptions));
+    // localStorage.setItem('mainCode', mainCode);
+    // localStorage.setItem('selectedDestinationOptions', JSON.stringify(selectedDestinationOptions));
+    // localStorage.setItem('selectedTypeOptions', JSON.stringify(selectedTypeOptions));
     localStorage.setItem('images', JSON.stringify(images));
-    localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
-    localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
-    localStorage.setItem('selectedLanguages', JSON.stringify(selectedLanguages));
-    localStorage.setItem('videoLink', videoLink);
-    localStorage.setItem('times', JSON.stringify(times));
-    localStorage.setItem('selectedPickupPlaces', JSON.stringify(selectedPickupPlaces));
-    localStorage.setItem('selectedDropoffPlaces', JSON.stringify(selectedDropoffPlaces));
-    localStorage.setItem('selectedLocations', JSON.stringify(selectedLocations));
-    localStorage.setItem('selectedInclusions', JSON.stringify(selectedInclusions));
-    localStorage.setItem('selectedExclusions', JSON.stringify(selectedExclusions));
-    localStorage.setItem('selectedAvailableLanguages', JSON.stringify(selectedAvailableLanguages));
-    localStorage.setItem('selectedWhatToBring', JSON.stringify(selectedWhatToBring));
-    localStorage.setItem('selectedAgeRanges', JSON.stringify(selectedAgeRanges));
-    localStorage.setItem('selectedCancellationPolicys', JSON.stringify(selectedCancellationPolicys));
-    localStorage.setItem('rates', JSON.stringify(rates));
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    localStorage.setItem('selectedResources', JSON.stringify(selectedResources));
+    // localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
+    // localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
+    // localStorage.setItem('selectedLanguages', JSON.stringify(selectedLanguages));
+    // localStorage.setItem('videoLink', videoLink);
+    // localStorage.setItem('times', JSON.stringify(times));
+    // localStorage.setItem('selectedPickupPlaces', JSON.stringify(selectedPickupPlaces));
+    // localStorage.setItem('selectedDropoffPlaces', JSON.stringify(selectedDropoffPlaces));
+    // localStorage.setItem('selectedLocations', JSON.stringify(selectedLocations));
+    // localStorage.setItem('selectedInclusions', JSON.stringify(selectedInclusions));
+    // localStorage.setItem('selectedExclusions', JSON.stringify(selectedExclusions));
+    // localStorage.setItem('selectedAvailableLanguages', JSON.stringify(selectedAvailableLanguages));
+    // localStorage.setItem('selectedWhatToBring', JSON.stringify(selectedWhatToBring));
+    // localStorage.setItem('selectedAgeRanges', JSON.stringify(selectedAgeRanges));
+    // localStorage.setItem('selectedCancellationPolicys', JSON.stringify(selectedCancellationPolicys));
+    // localStorage.setItem('rates', JSON.stringify(rates));
+    // localStorage.setItem('tasks', JSON.stringify(tasks));
+    // localStorage.setItem('selectedResources', JSON.stringify(selectedResources));
     // >>>
     setCompletedSteps(prevCompletedSteps => {
       const newCompletedSteps = new Set(prevCompletedSteps);
@@ -1007,6 +1015,10 @@ export default function Home(isEditing, data) {
       tasks,
       selectedResources
     ]);
+
+    const handleSelectOwnerChange = (event) => {
+      setSelectedOwner(event.target.value);
+    };
   
   
 
@@ -1080,24 +1092,24 @@ export default function Home(isEditing, data) {
                     <div className="w-full flex flex-col items-center space-y-2 ">
                       
                       <div className="w-full max-w-lg">
-                        <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200"> {/* Reduzi a margem inferior */}
-                          Give your Experience a Code
+                        <h3 className="text-xl font-semibold mb-1 text-center text-white"> {/* Reduzi a margem inferior */}
+                          Hotel Name
                         </h3>
-                        <p className="text-gray-700 dark:text-gray-300 mb-2"> 
+                        {/* <p className="text-gray-700 dark:text-gray-300 mb-2"> 
                            Give your Experience a code that serves as an presentation.
-                        </p>
+                        </p> */}
                         <br/>
                         <input
                               id="code"
                               type="text"
-                              value={mainCode}
-                              onChange={(e) => setMainCode(e.target.value)}
+                              value={hotelName}
+                              onChange={(e) => setHotelName(e.target.value)}
                               className="w-full p-2 border border-gray-300 rounded dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-                              placeholder="Enter code"
+                              placeholder="Enter Hotel Name"
                             />
                       </div>
-                      <div className="w-full max-w-lg">
-                        <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200"> {/* Reduzi a margem inferior */}
+                      {/* <div className="w-full max-w-lg">
+                        <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200"> 
                           Choose the Expiriences Destination
                         </h3>
                         <p className="text-gray-700 dark:text-gray-300 mb-2">
@@ -1112,8 +1124,8 @@ export default function Home(isEditing, data) {
                           onSelect={handleSelectedDestinationOptions}
                         />
                       </div>
-                      <br/>
-                      <div className="w-full max-w-lg">
+                      <br/> */}
+                      {/* <div className="w-full max-w-lg">
                         <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200">
                         What is the Type of your Expirience
                         </h3>
@@ -1129,8 +1141,8 @@ export default function Home(isEditing, data) {
                           onSelect={handleSelectedTypeOptions}
                         />
                       </div>
-                      <br/>
-                      <div className="w-full max-w-lg mb-4">
+                      <br/> */}
+                      {/* <div className="w-full max-w-lg mb-4">
                         <h3 className="text-xl font-semibold mb-1 mt-4 text-center text-gray-800 dark:text-gray-200">
                         Chose the Themes that best describe your Expirience
                         </h3>
@@ -1146,8 +1158,8 @@ export default function Home(isEditing, data) {
                           onSelect={handleSelectedThemes}
                         />
                       </div>
-                      <br/>
-                      <div className="w-full max-w-lg">
+                      <br/> */}
+                      {/* <div className="w-full max-w-lg">
                         <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200">
                         Chose the Categories that best describe your Expirience
                         </h3>
@@ -1161,14 +1173,14 @@ export default function Home(isEditing, data) {
                           onRemoveOption={removeOption}
                           onSelect={handleSelectedCategories}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 )}
                 {activeStep === 1 && (
                 <div className="space-y-4 text-center"> 
                    <div className="w-full flex flex-col items-center space-y-4">  
-                     <div className="w-full max-w-lg">
+                     {/* <div className="w-full max-w-lg">
                        <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200">
                          Tell your travellers what the expirience is all about
                        </h3>
@@ -1182,21 +1194,21 @@ export default function Home(isEditing, data) {
                         onSelect={handleSelectedLanguages} // Callback para receber as seleções
                       />
                      </div>
-                     <br/>
+                     <br/> */}
                      <div className="w-full max-w-lg">
-                       <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200">
-                       Want to add Photos to your expirience?
+                       <h3 className="text-xl font-semibold mb-1 text-center text-white">
+                       Add Image
                        </h3>
-                       <p className="text-gray-700 dark:text-gray-300 mb-2">
+                       {/* <p className="text-gray-700 dark:text-gray-300 mb-2">
                        Show travellers even more details about your expirience to give your travellers a better idea of what to expect.
 
-                       </p>
+                       </p> */}
                        <br/>
-                       <DragImages images={images} onImagesChange={handleImagesChange} />
+                       <SingleAddImage image={images} onImageChange={handleImagesChange} />
                      </div>
                      <br/>
 
-                     <div className="w-full max-w-lg mb-4">
+                     {/* <div className="w-full max-w-lg mb-4">
                        <h3 className="text-xl font-semibold mb-1 text-center text-gray-800 dark:text-gray-200">
                        Want to add videos to your expirience?
                        </h3>
@@ -1212,13 +1224,37 @@ export default function Home(isEditing, data) {
                           placeholder="Paste the video link here..."
                           className="w-full p-2 border border-gray-300 rounded dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                         />
-                     </div>
+                     </div> */}
                    </div>
                  </div>
                   )}
                   {activeStep === 2 && (
-                  <div className="space-y-4 text-center">
-                    <h2 className="text-xl font-semibold mb-1 text-gray-800 dark:text-gray-200">
+                   <div className="space-y-2 text-center">
+                   <div className="w-full flex flex-col items-center space-y-2 ">
+                     
+                     <div className="w-full max-w-lg">
+                       <h3 className="text-xl font-semibold mb-1 text-center text-white"> {/* Reduzi a margem inferior */}
+                         Select Owner Name
+                       </h3>
+                       {/* <p className="text-gray-700 dark:text-gray-300 mb-2"> 
+                          Give your Experience a code that serves as an presentation.
+                       </p> */}
+                       <br/>
+                       <select
+                          className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 dark:bg-gray-700 dark:text-white"
+                          name="owner"
+                          id="owner"
+                          value={selectedOwner} // Controlled input value
+                          onChange={handleSelectOwnerChange} // Updates state on change
+                        >
+                          <option value="">-- Select a Owner --</option>
+                          <option value="Owner 1">Owner 1</option>
+                          <option value="Owner 2">Owner 2</option>
+                          <option value="Owner 3">Owner 3</option>
+                        </select>
+                       
+                     </div>
+                    {/* <h2 className="text-xl font-semibold mb-1 text-gray-800 dark:text-gray-200">
                         Set up your Experience Start Time
                     </h2>
                     <p className="text-gray-700 dark:text-gray-300 mb-2">
@@ -1255,7 +1291,7 @@ export default function Home(isEditing, data) {
                             />
                           </div>
 
-                          {/* Campo para Duration */}
+                         
                           <div className="mb-4 w-full">
                             <label
                               htmlFor="duration"
@@ -1286,11 +1322,12 @@ export default function Home(isEditing, data) {
                             </button>
                           </div>
                         </div>
-                      </Modal>
-
+                      </Modal> */}
+                    </div>
                     </div>
                   )}
-                  {activeStep === 3 && (
+                  {/* {activeStep === 3 && (
+                     
                   <div className="space-y-4 text-center">
                       <div className="w-full flex flex-col items-center space-y-4">
                         <div className="w-full max-w-lg mb-4">
@@ -1325,7 +1362,7 @@ export default function Home(isEditing, data) {
                         </div>
                       </div>
                     </div>
-                  )}
+                  )} */}
                   {activeStep === 4 && (
                     <div className="space-y-4 text-center">
                     <div className="w-full flex flex-col items-center space-y-4">
@@ -1638,14 +1675,15 @@ export default function Home(isEditing, data) {
                        </Modal>
                      </div>
                   )}
-             {activeStep === 9 ? (
-           <div className="space-y-4 text-center">
-           <div className="flex flex-col items-center">
+             {activeStep === 3 ? (
+           <div className="space-y-4 text-center  min-h-[500px]">
+            
+           <div className=" flex flex-col items-center" >
            <h2 className="text-xl font-semibold mb-1 text-gray-800 dark:text-gray-200">
                         Confirmation
                      </h2>
                      <p className="text-gray-700 dark:text-gray-300 mb-2">
-                         Save product as a Draft or make it A ready to use product - Ative | inactive  
+                         Save hotel as a Draft or make it A ready to use hotel - Ative | inactive  
                       </p>
                       <br/>
              {/* Imagem centralizada */}
@@ -1656,7 +1694,7 @@ export default function Home(isEditing, data) {
              />
            </div>
          
-           <div className="relative flex justify-between mt-6 items-center">
+           <div className="relative flex justify-between mt-6 items-center space-y-4" >
              <button
                onClick={handleBack}
                className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600"
@@ -1686,10 +1724,10 @@ export default function Home(isEditing, data) {
                {isDropdownOpen && (
                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg">
                    <button
-                     onClick={handleActivateProduct}
+                     onClick={handleAddHotel}
                      className="block w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                    >
-                     Activate Product
+                     Add Hotel
                    </button>
                    <button
                      onClick={handleSaveAsDraft}
@@ -1706,12 +1744,12 @@ export default function Home(isEditing, data) {
            
             ) : (
               <div className="relative flex justify-between mt-6 items-center">
-                <button
+              {activeStep == 0 ? <div></div> : <button
                   onClick={handleBack}
                   className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-400 dark:hover:bg-gray-600"
                 >
                   Back
-                </button>
+                </button>}
 
                 <button
                   onClick={handleSaveAndContinue}
@@ -1720,7 +1758,8 @@ export default function Home(isEditing, data) {
                   Save & Continue
                 </button>
               </div>
-            )}
+            )
+            }
 
               </div>
               <br/>
