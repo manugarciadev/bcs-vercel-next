@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.selected-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Espaçamento entre os itens */
+}
+
+.selected-option {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: #e0e0e0; /* Cor de fundo dos itens selecionados */
+  border-radius: 4px;
+  font-size: 14px; /* Tamanho da fonte menor */
+  border: 1px solid #ccc; /* Borda dos itens selecionados */
+}
+
+.selected-option button {
+  background: none;
+  border: none;
+  color: #ff0000; /* Cor do botão de remoção */
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px; /* Tamanho da fonte do botão de remoção */
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* Light color for the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+  border: 2px solid transparent; /* Add space around thumb */
+  background-clip: padding-box; /* Ensures space is visible */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8; /* Darker color on hover */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f1f5f9; /* Track color for light theme */
+  border-radius: 4px; /* Rounded corners for the track */
+}
+
+/* Dark theme scrollbar styles */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #475569; /* Dark color for the scrollbar thumb */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #334155; /* Darker color on hover */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #1e293b; /* Track color for dark theme */
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* Light color for the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+  border: 2px solid transparent; /* Add space around thumb */
+  background-clip: padding-box; /* Ensures space is visible */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8; /* Darker color on hover */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f1f5f9; /* Track color for light theme */
+  border-radius: 4px; /* Rounded corners for the track */
+}
+
+/* Dark theme scrollbar styles */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #475569; /* Dark color for the scrollbar thumb */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #334155; /* Darker color on hover */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #1e293b; /* Track color for dark theme */
+}
+
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Adicione ao seu arquivo CSS ou dentro de <style jsx> */
+button {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+
+
