@@ -77,12 +77,17 @@ function Sidebar() {
             <span className={`ml-3 ${!isOpen && 'hidden'}`}>Reports</span>
           </Link>
         </li>
-        <li className="p-2 hover:bg-indigo-600 rounded">
+        <li className="flex items-center p-2 hover:bg-indigo-600 rounded">
+          <Link href="/users" className="flex items-center w-full">
+            <UsersIcon className="h-6 w-6" />
+            <span className={`ml-3 ${!isOpen && 'hidden'}`}>Users</span>
+          </Link>
+        </li>
+        {/* <li className="p-2 hover:bg-indigo-600 rounded">
         <div className="flex items-center cursor-pointer" onClick={toggleResources}>
           <ChevronDown className="h-6 w-6" />
           <span className={`ml-3 ${!isOpen && 'hidden'}`}>Resources</span>
         </div>
-        {/* Submenu */}
         <ul className={`ml-8 mt-2 space-y-2 ${isResourcesOpen ? 'block' : 'hidden'}`}>
           <li className="flex items-center p-2 hover:bg-indigo-500 rounded">
             <Link href="/resources/fleets" className="flex items-center w-full">
@@ -98,7 +103,7 @@ function Sidebar() {
           </li>
           
         </ul>
-      </li>
+      </li> */}
       </ul>
 
       {/* Botão de Logout */}

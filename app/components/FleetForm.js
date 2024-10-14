@@ -961,7 +961,7 @@ export default function Home(isEditing, data) {
     // localStorage.setItem('mainCode', mainCode);
     // localStorage.setItem('selectedDestinationOptions', JSON.stringify(selectedDestinationOptions));
     // localStorage.setItem('selectedTypeOptions', JSON.stringify(selectedTypeOptions));
-    localStorage.setItem('images', JSON.stringify(images));
+   // localStorage.setItem('images', JSON.stringify(images));
     // localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
     // localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
     // localStorage.setItem('selectedLanguages', JSON.stringify(selectedLanguages));
